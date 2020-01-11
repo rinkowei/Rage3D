@@ -2,7 +2,7 @@ include(CheckIncludeFile)
 foreach(HEADER stdint.h inttypes.h malloc.h)
     string(TOUPPER HAVE_${HEADER} HAVE_HEADER)
     string(REPLACE . _ HAVE_HEADER ${HAVE_HEADER})
-    check_include_file (${HEADER} ${HAVE_HEADER})
+    check_include_file(${HEADER} ${HAVE_HEADER})
 endforeach()
 
 include(CheckFunctionExists)
