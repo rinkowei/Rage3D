@@ -14,3 +14,9 @@ endif()
 
 # set project name
 project(Rage3D)
+
+# set CMake modules search path
+set (CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
+
+# include RageCommon.cmake module after setting project name
+include(RageCommon)
