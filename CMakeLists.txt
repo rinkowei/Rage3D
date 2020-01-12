@@ -54,7 +54,7 @@ install (DIRECTORY ${CMAKE_SOURCE_DIR}/CMake/ DESTINATION ${DEST_SHARE_DIR}/CMak
 file (GLOB CMAKE_SCRIPTS ${CMAKE_SOURCE_DIR}/script/*${SCRIPT_EXT})
 install (PROGRAMS ${CMAKE_SCRIPTS} DESTINATION ${DEST_SHARE_DIR}/Scripts)
 
-# Setup package variables
+# setup package variables
 set (RAGE3D_DESCRIPTION "Rage3D is a free lightweight, cross-platform 2D and 3D game engine implemented in C++ and released under the MIT license. Greatly inspired by OGRE (http://www.ogre3d.org) and Horde3D (http://www.horde3d.org).")
 set (CPACK_PACKAGE_DESCRIPTION_SUMMARY ${RAGE3D_DESCRIPTION})
 set (RAGE3D_URL "https://github.com/Rage3D/Rage3D")
