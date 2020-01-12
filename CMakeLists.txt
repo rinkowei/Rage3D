@@ -1,44 +1,43 @@
+# Set CMake minimum version and CMake policy required by RageCommon module
 cmake_minimum_required (VERSION 3.10)
-if(COMMAND cmake_policy)
-    # libraries linked via full path no longer produce linker search paths
+if (COMMAND cmake_policy)
+    # Libraries linked via full path no longer produce linker search paths
     cmake_policy (SET CMP0003 NEW)
     # INTERFACE_LINK_LIBRARIES defines the link interface
     cmake_policy (SET CMP0022 NEW)
-    # disallow use of the LOCATION target property - so we set to OLD as we still need it
+    # Disallow use of the LOCATION target property - so we set to OLD as we still need it
     cmake_policy (SET CMP0026 OLD)
     # MACOSX_RPATH is enabled by default
     cmake_policy (SET CMP0042 NEW)
-    # honor the visibility properties for SHARED target types only
+    # Honor the visibility properties for SHARED target types only
     cmake_policy (SET CMP0063 OLD)
-endif()
+endif ()
 
-# set project name
-project(Rage3D)
+# Set project name
+project (Rage3D)
 
-# set CMake modules search path
+# Set CMake modules search path
 set (CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake/Modules)
 
-# include RageCommon.cmake module after setting project name
-include(RageCommon)
+# Include RageCommon.cmake module after setting project name
+include (RageCommon)
 
-# setup SDK install destinations
-set(PATH_SUFFIX Rage3D)
-if(WIN32)
-    set(SCRIPT_EXT .bat)
-    if(CMAKE_HOST_WIN32)
-        set(PATH_SUFFIX .)
-    endif()
-else()
-    set(SCRIPT_EXT .sh)
-endif()
-
-if(RAGE3D_64BIT)
-    # install to 'lib64' when one of these conditions is true
-    if((MINGW AND CMAKE_CROSSCOMPILING) OR RAGE3D_USE_LIB64_RPM OR (HAS_LIB64 AND NOT RAGE3D_USE_LIB_DEB))
-        set(LIB_SUFFIX 64)
-    endif()
-endif()
-
+# Setup SDK install destinations
+set (PATH_SUFFIX Rage3D)
+if (WIN32)
+    set (SCRIPT_EXT .bat)
+    if (CMAKE_HOST_WIN32)
+        set (PATH_SUFFIX .)
+    endif ()
+else ()
+    set (SCRIPT_EXT .sh)
+endif ()
+if (RAGE3D_64BIT)
+    # Install to 'lib64' when one of these conditions is true
+    if ((MINGW AND CMAKE_CROSSCOMPILING) OR RAGE3D_USE_LIB64_RPM OR (HAS_LIB64 AND NOT RAGE3D_USE_LIB_DEB))
+        set (LIB_SUFFIX 64)
+    endif ()
+endif ()
 set (DEST_INCLUDE_DIR include/Rage3D)    # The include directory path contains the 'Rage3D' suffix regardless of PATH_SUFFIX variable
 set (DEST_SHARE_DIR share/${PATH_SUFFIX})
 set (DEST_BUNDLE_DIR ${DEST_SHARE_DIR}/Applications)
@@ -54,10 +53,10 @@ install (DIRECTORY ${CMAKE_SOURCE_DIR}/CMake/ DESTINATION ${DEST_SHARE_DIR}/CMak
 file (GLOB CMAKE_SCRIPTS ${CMAKE_SOURCE_DIR}/script/*${SCRIPT_EXT})
 install (PROGRAMS ${CMAKE_SCRIPTS} DESTINATION ${DEST_SHARE_DIR}/Scripts)
 
-# setup package variables
-set (RAGE3D_DESCRIPTION "Rage3D is a free lightweight, cross-platform 2D and 3D game engine implemented in C++ and released under the MIT license. Greatly inspired by OGRE (http://www.ogre3d.org) and Horde3D (http://www.horde3d.org).")
+# Setup package variables
+set (RAGE3D_DESCRIPTION "Rage3D is a free lightweight, flexible, cross-platform 2D and 3D game engine.")
 set (CPACK_PACKAGE_DESCRIPTION_SUMMARY ${RAGE3D_DESCRIPTION})
-set (RAGE3D_URL "https://github.com/Rage3D/Rage3D")
+set (RAGE3D_URL "https://github.com/rinkowei/Rage3D")
 set (CPACK_PACKAGE_VENDOR ${RAGE3D_URL})
 set (CPACK_PACKAGE_CONTACT ${RAGE3D_URL})
 execute_process (COMMAND ${CMAKE_COMMAND} -P ${CMAKE_SOURCE_DIR}/CMake/Modules/GetRageRevision.cmake WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} OUTPUT_VARIABLE RAGE3D_VERSION OUTPUT_STRIP_TRAILING_WHITESPACE)
@@ -147,7 +146,7 @@ if (NOT DEFINED ENV{RELEASE_TAG})
 endif ()
 include (CPack)
 
-# setup macOS, iOS, and tvOS bundle variables
+# Setup macOS, iOS, and tvOS bundle variables
 if (RAGE3D_MACOSX_BUNDLE OR (APPLE AND ARM))
     if (NOT MACOSX_BUNDLE_ICON_FILE)
         set (MACOSX_BUNDLE_ICON_FILE RageIcon)
@@ -172,10 +171,10 @@ if (ANDROID AND GRADLE_BUILD_DIR)
 else ()
     set (THIRD_PARTY_INCLUDE_DIR ${CMAKE_BINARY_DIR}/${DEST_INCLUDE_DIR}/ThirdParty)
 endif ()
-file(MAKE_DIRECTORY ${THIRD_PARTY_INCLUDE_DIR})
+file (MAKE_DIRECTORY ${THIRD_PARTY_INCLUDE_DIR})
 
 # Rage3D source
-add_subdirectory(Engine)
+add_subdirectory (Source)
 
 # Rage3D documentation
-add_subdirectory(Docs)
+add_subdirectory (Docs)
