@@ -174,7 +174,7 @@ endif ()
 file (MAKE_DIRECTORY ${THIRD_PARTY_INCLUDE_DIR})
 
 # Rage3D source
-add_subdirectory (Source)
+add_subdirectory (Engine)
 
 # Rage3D documentation
 add_subdirectory (Docs)

@@ -114,7 +114,7 @@ if (NOT ANDROID AND NOT ARM AND NOT WEB)
 endif ()
 
 # Rage3D game engine library
-add_subdirectory (Rage3D)
+add_subdirectory (Engine)
 
 # Rage3D Clang tools
 if (RAGE3D_CLANG_TOOLS)
