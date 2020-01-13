@@ -1,5 +1,5 @@
 # Set CMake minimum version and CMake policy required by RageCommon module
-cmake_minimum_required (VERSION 3.10)
+cmake_minimum_required (VERSION 3.14.5)
 if (COMMAND cmake_policy)
     # Libraries linked via full path no longer produce linker search paths
     cmake_policy (SET CMP0003 NEW)
@@ -138,8 +138,6 @@ elseif (ARM_ABI_FLAGS)
     string (REGEX REPLACE .*- - CPU_NAME "${CPU_NAME}")
     string (TOUPPER "${CPU_NAME}" CPU_NAME)
     set (CPACK_SYSTEM_NAME ${CPACK_SYSTEM_NAME}${CPU_NAME})
-elseif (EMSCRIPTEN_WASM)
-    set (CPACK_SYSTEM_NAME ${CPACK_SYSTEM_NAME}-WASM)
 endif ()
 if (NOT DEFINED ENV{RELEASE_TAG})
     set (CPACK_SYSTEM_NAME ${CPACK_SYSTEM_NAME}-snapshot)
@@ -175,6 +173,3 @@ file (MAKE_DIRECTORY ${THIRD_PARTY_INCLUDE_DIR})
 
 # Rage3D source
 add_subdirectory (Engine)
-
-# Rage3D documentation
-add_subdirectory (Docs)

@@ -1,3 +1,25 @@
+#
+# Copyright (c) 2008-2020 the Rage3D project.
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+#
+
 # Check existence of various header files and their functions required by some of the third-party libraries and Rage3D library
 # Set the CMake variables in this scope but only add the compiler defines in the respective library's scope
 include (CheckIncludeFile)
@@ -46,88 +68,9 @@ if (RAGE3D_LIB_TYPE STREQUAL SHARED AND NOT WIN32 AND NOT ANDROID AND NOT IOS AN
 endif ()
 
 # Add targets
-foreach (TARGET ETCPACK FreeType LZ4 PugiXml rapidjson SDL StanHull STB)
+foreach (TARGET ETCPACK FreeType) #LZ4 PugiXml rapidjson SDL StanHull STB)
     add_subdirectory (ThirdParty/${TARGET})
 endforeach ()
 
-if (RAGE3D_ANGELSCRIPT)
-    add_subdirectory (ThirdParty/AngelScript)
-    if (WEB OR (ARM AND RAGE3D_64BIT))
-        add_subdirectory (ThirdParty/boost)
-    endif ()
-endif ()
-
-if (RAGE3D_LUA)
-    add_subdirectory (ThirdParty/Lua${JIT})
-    add_subdirectory (ThirdParty/toluapp/src/lib)
-endif ()
-
-if (RAGE3D_NETWORK)
-    add_subdirectory (ThirdParty/Civetweb)
-    add_subdirectory (ThirdParty/SLikeNet)
-endif ()
-
-if (RAGE3D_DATABASE_ODBC)
-    add_subdirectory (ThirdParty/nanodbc)
-endif ()
-if (RAGE3D_DATABASE_SQLITE)
-    add_subdirectory (ThirdParty/SQLite)
-endif ()
-
-if (RAGE3D_IK)
-    add_subdirectory (ThirdParty/ik)
-endif ()
-
-if (RAGE3D_NAVIGATION)
-    add_subdirectory (ThirdParty/Detour)
-    add_subdirectory (ThirdParty/DetourCrowd)
-    add_subdirectory (ThirdParty/DetourTileCache)
-    add_subdirectory (ThirdParty/Recast)
-endif ()
-
-if (RAGE3D_RAGE2D)
-    add_subdirectory (ThirdParty/Box2D)
-    if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/ThirdParty/spine)
-        add_subdirectory (ThirdParty/spine)
-        # Add definition for Spine
-        add_definitions (-DRAGE3D_SPINE)
-    endif ()
-endif ()
-
-if (RAGE3D_WEBP)
-    add_subdirectory (ThirdParty/WebP)
-endif ()
-
-if (RAGE3D_PHYSICS)
-    add_subdirectory (ThirdParty/Bullet)
-endif ()
-
-if (NOT ANDROID AND NOT ARM AND NOT WEB)
-    if (RAGE3D_OPENGL)
-        add_subdirectory (ThirdParty/GLEW)
-    elseif (NOT RAGE3D_D3D11)
-        add_subdirectory (ThirdParty/MojoShader)
-    endif ()
-    if (NOT CMAKE_SYSTEM_NAME STREQUAL Linux)
-        add_subdirectory (ThirdParty/LibCpuId)
-    endif ()
-endif ()
-
 # Rage3D game engine library
-add_subdirectory (Engine)
-
-# Rage3D Clang tools
-if (RAGE3D_CLANG_TOOLS)
-    add_subdirectory (Clang-Tools)
-endif ()
-
-# Rage3D tools
-add_subdirectory (Tools)
-
-# Rage3D samples
-add_subdirectory (Samples)
-
-# Rage3D extras
-if (RAGE3D_EXTRAS)
-    add_subdirectory (Extras)
-endif ()
+add_subdirectory (Source)
