@@ -1,0 +1,16 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=${prefix}
+libdir=${exec_prefix}/@DEST_LIBRARY_DIR@
+includedir=${prefix}/include
+
+# Additional Cflags for various build configurations, which can be accessed as normal pkg-config variable using '--variable' option
+CFLAGS_DEBUG=@CMAKE_CXX_FLAGS_DEBUG@
+CFLAGS_RELEASE=@CMAKE_CXX_FLAGS_RELEASE@
+CFLAGS_RELWITHDEBINFO=@CMAKE_CXX_FLAGS_RELWITHDEBINFO@
+
+Name: Rage3D
+Description: @RAGE3D_DESCRIPTION@
+Version: @RAGE3D_VERSION@
+URL: @RAGE3D_URL@
+Libs: @CLEANED_CMAKE_EXE_LINKER_FLAGS@ @RAGE3D_ABS_PATH_LIBS@ @LIB_DIR@ @RAGE3D_LIBS@
+Cflags: @RAGE3D_COMPILE_DEFINITIONS@ @CLEANED_CMAKE_CXX_FLAGS@ @GLOBAL_INCLUDE_DIRS@ @ENGINE_INCLUDE_DIRS@
